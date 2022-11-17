@@ -16,14 +16,14 @@ async def signJWT(user: _UserModel.User):
         "expires": time.time() + 600
     }
 
-    token = await jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
     return dict(access_token=token)
 
 
 async def decodeJWT(token: str):
     try:
-        decoded_token = await jwt.decode(
+        decoded_token = jwt.decode(
             token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         return decoded_token if decoded_token["expires"] >= time.time() else None
     except:
