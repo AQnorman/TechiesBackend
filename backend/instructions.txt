@@ -1,0 +1,9 @@
+RUN SERVER
+cd backend
+uvicorn src.main:app --reload
+
+CREATE VIRTUAL ENVIRONMENT
+python -m venv env
+
+INSTALL REQUIREMENTS
+python install -r requirements.txt
