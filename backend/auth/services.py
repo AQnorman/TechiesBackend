@@ -3,13 +3,13 @@ import fastapi.security as _security
 import jwt as _jwt
 import passlib.hash as _hash
 import sqlalchemy.orm as _orm
-from ..dependencies import get_db
+from dependencies import get_db
 import json
-from src.database import database as _database
+from database import database as _database
 from . import models as _models
 from . import schemas as _schemas
 
-from ..utils import oauth2schema, JWT_SECRET
+from utils import oauth2schema, JWT_SECRET
 
 
 # USERS

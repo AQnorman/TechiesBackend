@@ -2,7 +2,7 @@ import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
 import passlib.hash as _hash
 
-from src.database.database import Base
+from database.database import Base
 
 
 class User(Base):

@@ -1,11 +1,11 @@
 import fastapi as _fastapi
 import datetime as _dt
-from ..auth import schemas as _UserSchema
-from ..courses import schemas as _CourseSchema
-from ..auth import models as _UserModel
-from ..courses import models as _CourseModel
+from auth import schemas as _UserSchema
+from courses import schemas as _CourseSchema
+from auth import models as _UserModel
+from courses import models as _CourseModel
 import sqlalchemy.orm as _orm
-from ..dependencies import get_db
+from dependencies import get_db
 import json
 
 

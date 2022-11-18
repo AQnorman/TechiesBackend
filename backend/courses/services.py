@@ -1,9 +1,9 @@
 import fastapi as _fastapi
 import datetime as _dt
-from ..auth import schemas as _UserSchema
+from auth import schemas as _UserSchema
 from . import schemas as _CourseSchema
 import sqlalchemy.orm as _orm
-from ..dependencies import get_db
+from dependencies import get_db
 from . import models as _models
 
 

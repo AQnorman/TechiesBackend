@@ -2,7 +2,7 @@ import sqlalchemy as _sql
 import sqlalchemy.orm as _orm
 import datetime as _dt
 
-from src.database.database import Base
+from database.database import Base
 
 
 class Course(Base):

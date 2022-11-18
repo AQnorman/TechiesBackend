@@ -1,4 +1,4 @@
-from .database import database as _database
+from database import database as _database
 
 
 def get_db():

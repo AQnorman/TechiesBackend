@@ -1,7 +1,7 @@
 from typing import Optional
 import pydantic as _pydantic
 from pydantic import BaseConfig
-from ..courses import schemas as _CourseSchema
+from courses import schemas as _CourseSchema
 
 BaseConfig.arbitrary_types_allowed = True
 

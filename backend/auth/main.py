@@ -3,7 +3,7 @@ import fastapi.security as _security
 from . import schemas as _schemas
 from . import services as _services
 import sqlalchemy.orm as _orm
-from ..courses import schemas as _CourseSchema
+from courses import schemas as _CourseSchema
 from typing import Union
 from . import auth_bearer as _auth_bearer
 

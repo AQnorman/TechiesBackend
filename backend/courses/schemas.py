@@ -13,15 +13,12 @@ class _CourseBase(_pydantic.BaseModel):
     outline: str
     outcomes: str
     duration: str
-    start_date: _dt.datetime
+    start_date: _dt.date
     fees: int
 
 
 class CourseCreate(_CourseBase):
     pass
-
-    class Config:
-        orm_mode = True
 
 
 class Course(_CourseBase):

@@ -3,9 +3,9 @@ import fastapi.security as _security
 from . import schemas as _schemas
 from . import services as _services
 import sqlalchemy.orm as _orm
-from ..dependencies import get_db
+from dependencies import get_db
 from typing import List
-from ..auth.auth_bearer import JWTBearer
+from auth.auth_bearer import JWTBearer
 
 router = _fastapi.APIRouter(prefix="/api/courses")
 

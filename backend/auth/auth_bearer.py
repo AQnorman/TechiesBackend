@@ -1,7 +1,7 @@
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
-from ..utils import JWT_SECRET, oauth2schema, JWT_ALGORITHM
+from utils import JWT_SECRET, oauth2schema, JWT_ALGORITHM
 import time
 import json
 from . import models as _UserModel
