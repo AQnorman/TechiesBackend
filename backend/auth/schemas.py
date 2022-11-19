@@ -9,10 +9,19 @@ BaseConfig.arbitrary_types_allowed = True
 class _UserBase(_pydantic.BaseModel):
     username: str
     email: str
+    phone: int
 
 
 class UserCreate(_UserBase):
     hashed_password: str
+
+    class Config:
+        orm_mode = True
+
+
+class UserAuth(_UserBase):
+    hashed_password: str
+    id: int
 
     class Config:
         orm_mode = True

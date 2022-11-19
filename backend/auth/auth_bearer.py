@@ -9,7 +9,7 @@ from . import schemas as _UserSchema
 
 
 async def signJWT(user: _UserModel.User):
-    user_obj = _UserSchema.User.from_orm(user)
+    user_obj = _UserSchema.UserAuth.from_orm(user)
 
     payload = {
         **user_obj.dict(),
@@ -47,6 +47,12 @@ class JWTBearer(HTTPBearer):
         else:
             raise HTTPException(
                 status_code=403, detail="Invalid authorization code.")
+
+    async def get_cred(self, request: Request):
+        credentials: HTTPAuthorizationCredentials = await super(JWTBearer, self).__call__(request)
+        if credentials:
+            if credentials.schema == "Bearer":
+                return credentials.credentials
 
     async def verify_jwt(self, jwtoken: str) -> bool:
         isTokenValid: bool = False

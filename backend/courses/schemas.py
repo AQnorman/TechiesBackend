@@ -1,9 +1,8 @@
-from typing import List
+from typing import Optional
 import datetime as _dt
 import pydantic as _pydantic
 from pydantic import BaseConfig
-
-BaseConfig.arbitrary_types_allowed = True
+from instructors import schemas as _InstructorSchema
 
 
 # COURSE
@@ -23,6 +22,7 @@ class CourseCreate(_CourseBase):
 
 class Course(_CourseBase):
     id: int
+    instructor: _InstructorSchema.Instructor
     date_created: _dt.datetime
     date_last_updated: _dt.datetime
 

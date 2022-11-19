@@ -1,17 +1,29 @@
 import fastapi as _fastapi
 import datetime as _dt
 from auth import schemas as _UserSchema
+from instructors import schemas as _InstructorSchema
 from . import schemas as _CourseSchema
 import sqlalchemy.orm as _orm
 from dependencies import get_db
+from instructors import models as _InstructorModel
 from . import models as _models
 
 
-async def create_course(course: _CourseSchema.Course, db: _orm.Session):
+async def create_course(course: _CourseSchema.CourseCreate, instructor_id: int, db: _orm.Session):
     exists = db.query(_models.Course).filter(
         _models.Course.name == course.name).first()
+
+    instructor = db.query(_InstructorModel.Instructor).filter(
+        _InstructorModel.Instructor.id == instructor_id).first()
+
+    if instructor is None:
+        raise _fastapi.HTTPException(
+            status_code=404,
+            detail="Instructor Not Found."
+        )
+
     if exists is None:
-        course = _models.Course(**course.dict())
+        course = _models.Course(**course.dict(), instructor_id=instructor_id)
         db.add(course)
         db.commit()
         db.refresh(course)

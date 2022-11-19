@@ -10,7 +10,7 @@ from . import models as _models
 from . import schemas as _schemas
 
 from utils import oauth2schema, JWT_SECRET
-
+from . import auth_bearer
 
 # USERS
 
@@ -34,7 +34,9 @@ async def get_users(db: _orm.Session, skip: int = 0, limit: int = 100):
 # CREATE USER
 async def create_user(db: _orm.Session, user: _schemas.UserCreate):
     user_obj = _models.User(username=user.username,
-                            email=user.email, hashed_password=_hash.bcrypt.hash(user.hashed_password))
+                            email=user.email,
+                            phone=user.phone,
+                            hashed_password=_hash.bcrypt.hash(user.hashed_password))
     db.add(user_obj)
     db.commit()
     db.refresh(user_obj)
@@ -67,6 +69,7 @@ async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: s
     try:
         payload = _jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
         user = db.query(_models.User).get(payload["id"])
+        print(user)
     except:
         raise _fastapi.HTTPException(
             status_code=401,
@@ -74,3 +77,23 @@ async def get_current_user(db: _orm.Session = _fastapi.Depends(get_db), token: s
         )
 
     return _schemas.User.from_orm(user)
+
+
+async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session):
+    user_obj = db.query(_models.User).filter(
+        _models.User.id == user_id).first()
+
+    if user_obj is None:
+        raise _fastapi.HTTPException(
+            status_code=404, detail="User Not Found."
+        )
+
+    user_obj.username = user.username
+    user_obj.email = user.email
+    user_obj.hashed_password = user.hashed_password
+    user_obj.phone = user.phone
+
+    db.commit()
+    db.refresh(user_obj)
+
+    return _schemas.User.from_orm(user_obj)

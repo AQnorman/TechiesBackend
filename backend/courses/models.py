@@ -16,7 +16,10 @@ class Course(Base):
     start_date = _sql.Column(_sql.Date, default=_dt.datetime.date)
     fees = _sql.Column(_sql.Integer, index=True)
     student_id = _sql.Column(_sql.Integer, _sql.ForeignKey("users.id"))
+    instructor_id = _sql.Column(
+        _sql.Integer, _sql.ForeignKey("instructors.id"))
     date_created = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
     date_last_updated = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
 
     student = _orm.relationship("User", back_populates="courses")
+    instructor = _orm.relationship("Instructor", back_populates="course")

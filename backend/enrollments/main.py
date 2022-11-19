@@ -6,7 +6,7 @@ from dependencies import get_db
 from . import services as _services
 from auth.auth_bearer import JWTBearer
 
-router = _fastapi.APIRouter(prefix="/api/course")
+router = _fastapi.APIRouter(prefix="/api/course", tags=["Enroll"])
 
 
 @router.put("/enroll", dependencies=[_fastapi.Depends(JWTBearer())], status_code=200)

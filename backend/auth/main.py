@@ -7,7 +7,7 @@ from courses import schemas as _CourseSchema
 from typing import Union
 from . import auth_bearer as _auth_bearer
 
-router = _fastapi.APIRouter(prefix="/api")
+router = _fastapi.APIRouter(prefix="/api", tags=["User"])
 
 
 @router.post("/users")
@@ -40,3 +40,10 @@ async def generate_token(
 @router.post("/users/me", response_model=_schemas.User)
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
+
+
+@router.put("/users/{user_id}", response_model=_schemas.User)
+async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    await _services.update_user(user_id=user_id, user=user, db=db)
+
+    return {"message": "User Updated Successfully"}

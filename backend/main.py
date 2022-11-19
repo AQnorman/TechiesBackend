@@ -1,9 +1,11 @@
 import auth
 import courses
 import enrollments
+import instructors
 from auth import main, models
 from courses import main, models
 from enrollments import main
+from instructors import main, models
 
 from database.database import engine
 
@@ -29,3 +31,4 @@ async def read_tmp():
 app.include_router(auth.main.router)
 app.include_router(courses.main.router)
 app.include_router(enrollments.main.router)
+app.include_router(instructors.main.router)
