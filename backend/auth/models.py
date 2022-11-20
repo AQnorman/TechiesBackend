@@ -15,6 +15,7 @@ class User(Base):
     is_active = _sql.Column(_sql.Boolean, default=True)
 
     courses = _orm.relationship("Course", back_populates="student")
+    feedbacks = _orm.relationship("Feedback", back_populates="student")
 
     def verify_password(self, password: str):
         return _hash.bcrypt.verify(password, self.hashed_password)

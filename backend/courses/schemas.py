@@ -5,7 +5,11 @@ from pydantic import BaseConfig
 from instructors import schemas as _InstructorSchema
 
 
+BaseConfig.arbitrary_types_allowed = True
+
 # COURSE
+
+
 class _CourseBase(_pydantic.BaseModel):
     name: str
     desc: str
