@@ -21,6 +21,19 @@ async def signJWT(user: _UserModel.User):
     return dict(access_token=token)
 
 
+async def signAdminJWT(user: _UserModel.User):
+    user_obj = _UserSchema.AdminAuth.from_orm(user)
+
+    payload = {
+        **user_obj.dict(),
+        "expires": time.time() + 600
+    }
+
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+    return dict(access_token=token)
+
+
 async def decodeJWT(token: str):
     try:
         decoded_token = jwt.decode(
