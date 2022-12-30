@@ -150,3 +150,25 @@ async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session)
     db.refresh(user_obj)
 
     return {"message": "success", "username": user_obj.username, "email": user_obj.email, "phone": user_obj.phone}
+
+
+async def update_admin(user_id: int, user: _schemas.AdminCreate, db: _orm.Session):
+    user_obj = db.query(_models.User).filter(
+        _models.User.id == user_id).first()
+
+    if user_obj is None:
+        raise _fastapi.HTTPException(
+            status_code=404, detail="User Not Found."
+        )
+
+    if user.hashed_password == "":
+        user_obj.email = user.email
+        user_obj.hashed_password = user_obj.hashed_password
+    else:
+        user_obj.email = user.email
+        user_obj.hashed_password = _hash.bcrypt.hash(user.hashed_password)
+
+    db.commit()
+    db.refresh(user_obj)
+
+    return {"message": "success", "email": user_obj.email}

@@ -78,3 +78,9 @@ async def get_user(user: _schemas.Admin = _fastapi.Depends(_services.get_current
 async def update_user(user_id: int, user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
     res = await _services.update_user(user_id=user_id, user=user, db=db)
     return res
+
+
+@router.put("/admins/{user_id}", tags=["Admin"])
+async def update_admin(user_id: int, user: _schemas.AdminCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    res = await _services.update_admin(user_id=user_id, user=user, db=db)
+    return res
